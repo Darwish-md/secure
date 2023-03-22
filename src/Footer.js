@@ -3,7 +3,7 @@ import React from 'react'
 export default function Footer() {
   return (
    
-    <footer id='mission' className="bg-veryDarkBlue">
+    <footer id='mission' className="bg-veryDarkBlue flex-shrink-0">
       <div
         className="container flex flex-col-reverse justify-between px-6 py-10 mx-auto space-y-8 md:flex-row md:space-y-0"
       >
@@ -21,23 +21,23 @@ export default function Footer() {
           
           <div className="flex justify-center space-x-4">
             
-            <a href="#">
+            <a >
               <img src="img/icon-facebook.svg" alt="" className="h-8" />
             </a>
             
-            <a href="#">
+            <a >
               <img src="img/icon-youtube.svg" alt="" className="h-8" />
             </a>
             
-            <a href="#">
+            <a >
               <img src="img/icon-twitter.svg" alt="" className="h-8" />
             </a>
             
-            <a href="#">
+            <a >
               <img src="img/icon-pinterest.svg" alt="" className="h-8" />
             </a>
             
-            <a href="#">
+            <a >
               <img src="img/icon-instagram.svg" alt="" className="h-8" />
             </a>
           </div>
@@ -45,15 +45,15 @@ export default function Footer() {
      
         <div className="flex justify-around space-x-32">
           <div className="flex flex-col space-y-3 text-white">
-            <a href="#" className="hover:text-brightRed">Home</a>
-            <a href="#" className="hover:text-brightRed">Pricing</a>
-            <a href="#" className="hover:text-brightRed">Products</a>
-            <a href="#" className="hover:text-brightRed">About</a>
+            <a  className="hover:text-brightRed">Home</a>
+            <a  className="hover:text-brightRed">Pricing</a>
+            <a  className="hover:text-brightRed">Products</a>
+            <a  className="hover:text-brightRed">About</a>
           </div>
           <div className="flex flex-col space-y-3 text-white">
-            <a href="#" className="hover:text-brightRed">Careers</a>
-            <a href="#" className="hover:text-brightRed">Community</a>
-            <a href="#" className="hover:text-brightRed">Privacy Policy</a>
+            <a  className="hover:text-brightRed">Careers</a>
+            <a  className="hover:text-brightRed">Community</a>
+            <a  className="hover:text-brightRed">Privacy Policy</a>
           </div>
         </div>
 

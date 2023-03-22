@@ -1,5 +1,5 @@
 import React from "react";
-import Web3 from "web3";
+//import Web3 from "web3";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
