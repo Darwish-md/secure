@@ -1,12 +1,15 @@
 import React from "react";
-import Footer from "./Footer";
-import Home from "./Home";
-import NavBar from "./NavBar";
-import Testimonals from "./Testimonals";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
+import Contact from "./components/Contact";
+import Testimonals from "./components/Testimonals";
 import ElectionPage from "./pages/ElectionPage";
 import VotingPage from "./pages/VotingPage";
+import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ElectionForm from "./forms/ElectionForm";
+import Mission from "./components/Mission";
 
 const App = () => {
   return (
@@ -17,11 +20,14 @@ const App = () => {
           <>
           <Home />
           <Testimonals />
+          <Contact />
           </>
         } />
         <Route path='/elections' element={<ElectionPage />} />
+        <Route path='/mission' element={<Mission />} />
         <Route path='/elections/create' element={<ElectionForm />} />
         <Route path='/elections/vote/:id' element={<VotingPage />} />
+        <Route path='/elections/dashboard/:id' element={<Dashboard />} />
       </Routes>
       <Footer />
     </Router>

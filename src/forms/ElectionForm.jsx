@@ -2,22 +2,30 @@ import React, { useState } from "react";
 import { createElection } from "../service/electionContractUtils";
 
 export default function ElectionForm() {
-  const [textboxes, setTextboxes] = useState([""]);
+  const [candidates, setCandidates] = useState([""]);
 
-  const addTextbox = () => {
-    setTextboxes([...textboxes, ""]);
+  const addCandidate = () => {
+    setCandidates([...candidates, ""]);
   };
 
   const handleTextboxChange = (index, value) => {
-    const updatedTextboxes = [...textboxes];
-    updatedTextboxes[index] = value;
-    setTextboxes(updatedTextboxes);
+    const updatedCandidates = [...candidates];
+    updatedCandidates[index] = value;
+    setCandidates(updatedCandidates);
   };
 
   const handleSubmit = async (event) => {
     console.log(event);
     event.preventDefault();
-    await createElection(event);
+    console.log(candidates);
+    const elements = event.target.elements;
+    const electionData = {
+        electionName: elements.electionName.value,
+        creatorName: elements.creatorName.value,
+        endDate: elements.endDate.value,
+        candidates: candidates
+    }
+    await createElection(electionData);
   };
 
   return (
@@ -28,7 +36,7 @@ export default function ElectionForm() {
       >
         <div className='mb-4'>
           <label
-            className='block text-gray-700 text-sm font-bold mb-2'
+            className='block text-sm font-bold mb-2'
             htmlFor='election'
           >
             Election
@@ -42,7 +50,7 @@ export default function ElectionForm() {
         </div>
         <div className='mb-4'>
           <label
-            className='block text-gray-700 text-sm font-bold mb-2'
+            className='block text-sm font-bold mb-2'
             htmlFor='owner'
           >
             Owner
@@ -56,7 +64,7 @@ export default function ElectionForm() {
         </div>
         <div class='mb-4'>
           <label
-            class='block text-gray-700 text-sm font-bold mb-2'
+            class='block text-sm font-bold mb-2'
             for='endDate'
           >
             End Date
@@ -70,10 +78,10 @@ export default function ElectionForm() {
         </div>
         <div>
           <div className='flex flex-col mb-4'>
-            {textboxes.map((textbox, index) => (
+            {candidates.map((candidate, index) => (
               <div key={index}>
                 <label
-                  className='block text-gray-700 text-sm font-bold mb-2'
+                  className='block text-sm font-bold mb-2'
                   htmlFor=''
                 >
                   {`Candidate ${index + 1}`}
@@ -83,7 +91,7 @@ export default function ElectionForm() {
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   key={index}
                   placeholder={`Candidate ${index + 1}`}
-                  value={textbox}
+                  value={candidate}
                   onChange={(event) =>
                     handleTextboxChange(index, event.target.value)
                   }
@@ -92,7 +100,7 @@ export default function ElectionForm() {
             ))}
           </div>
           <div>
-            <button type='button' onClick={addTextbox}>
+            <button type='button' onClick={addCandidate}>
               Add Textbox
             </button>
           </div>

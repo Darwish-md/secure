@@ -1,5 +1,5 @@
 import { useLocation, Link } from "react-router-dom";
-import ConnectButton from "./components/ConnectButton";
+import ConnectButton from "./ConnectButton";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -26,6 +26,12 @@ export default function NavBar() {
         </div>
         {/* Menu items */}
         <div className='hidden md:flex space-x-10 mr-3'>
+        <Link
+            to='/'
+            className='p-5 hover:bg-denimLight rounded text-xl cursor-pointer'
+          >
+            Home
+          </Link>
           <Link
             to='/mission'
             className='p-5 hover:bg-denimLight rounded text-xl cursor-pointer'
@@ -43,12 +49,6 @@ export default function NavBar() {
             className='p-5 hover:bg-denimLight rounded text-xl cursor-pointer'
           >
             Chat
-          </Link>
-          <Link
-            to='/engage'
-            className='p-5 hover:bg-denimLight rounded text-xl cursor-pointer'
-          >
-            Engage
           </Link>
           {/* Button */}
           <ConnectButton />
