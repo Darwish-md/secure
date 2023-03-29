@@ -115,12 +115,8 @@ async function createElection(electionData) {
       convertToUnixStamp(electionData.endDate)
     );
     const transactionResult = await transaction.wait();
-    console.log(transactionResult);
     const electionId = transactionResult.events[0].args[0].toNumber();
-    console.log("electionId:", transactionResult.events[0].args[0].toNumber())
     await addCandidates(electionId, electionData.candidates, contract);
-
-    console.log(await getElectionById(electionId));
     return electionId;
   } catch (err) {
     console.log(err);

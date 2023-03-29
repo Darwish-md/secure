@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { createElection } from "../service/electionContractUtils";
+import { useNavigate } from "react-router-dom";
 
 export default function ElectionForm() {
+    const navigate = useNavigate();
   const [candidates, setCandidates] = useState([""]);
 
   const addCandidate = () => {
@@ -15,9 +17,7 @@ export default function ElectionForm() {
   };
 
   const handleSubmit = async (event) => {
-    console.log(event);
     event.preventDefault();
-    console.log(candidates);
     const elements = event.target.elements;
     const electionData = {
         electionName: elements.electionName.value,
@@ -25,7 +25,8 @@ export default function ElectionForm() {
         endDate: elements.endDate.value,
         candidates: candidates
     }
-    await createElection(electionData);
+    const electionId = await createElection(electionData);
+    if (electionId) navigate(`/elections/vote/${electionId}`);
   };
 
   return (

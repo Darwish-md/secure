@@ -5,7 +5,7 @@ export default function Testimonals() {
     <section id='testimonials'>
       <div className='max-w-6xl px-5 mx-auto text-center'>
         <h2 className='text-4xl font-bold text-center'>
-          What's Different About Manage?
+          What's Different About Secure?
         </h2>
 
         <div className='flex flex-col mt-24 md:flex-row md:space-x-6'>
@@ -13,7 +13,7 @@ export default function Testimonals() {
             <img src='img/avatar-anisha.png' className='w-16 -mt-14' alt='' />
             <h5 className='text-lg font-bold'>Anisha Li</h5>
             <p className='text-sm text-darkGrayishBlue'>
-              “Manage has supercharged our team’s workflow. The ability to
+              “Secure has supercharged our team’s workflow. The ability to
               maintain visibility on larger milestones at all times keeps
               everyone motivated.”
             </p>

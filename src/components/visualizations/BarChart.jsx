@@ -8,12 +8,12 @@ const BarChart = () => {
     const  data = [
         { name: "cand1", votes: 5 },
         { name: "cand2", votes: 7 },
-        { name: "cand3", votes: 10 },
+        { name: "cand3", votes: 80 },
       ];
 
     const margin = { top: 50, right: 30, bottom: 100, left: 60 };
     const width = 400 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const height = 200 - margin.top - margin.bottom;
 
     const svg = d3.select(ref.current)
       .attr("width", width + margin.left + margin.right)

@@ -1,40 +1,38 @@
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import { getElectionById, castVote,   getCandidateVotes} from '../service/electionContractUtils';
+import { getElectionById,  getCandidateVotes} from '../service/electionContractUtils';
+import Loader from "../components/shared/Loader";
+import CandidateCard from '../components/shared/CandidateCard';
 
 export default function VotingPage() {
     const { id: electionId } = useParams();
+    const [loading, setLoading] = useState(true);
     const [candidates, setCandidates] = useState([]);
-    const [election, setElection] = useState({});
 
     useEffect(() => {
-        async function render(){
+        async function renderCandidates(){
             const renderedElection = await getElectionById(electionId);
-            console.log(renderedElection)
             setCandidates(renderedElection[4])
-            setElection(renderedElection)
            console.log( await getCandidateVotes(0, 0))
         }
-        render();
+        const timeoutId = setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        renderCandidates();
+        return () => clearTimeout(timeoutId);
     }, []) // add empty dependency array to useEffect to prevent infinite loop
    
-    function submitVote(index) {
-        console.log(`Clicked candidate with index ${index}`);
-        castVote(electionId, index);
 
-    }
+    const renderedCandidates = candidates.map((candidate, index) => <CandidateCard candidate={candidate} candidateId={index} electionId={electionId}/>)
+
     return (
-        <div>
-            <div>Election {election[0]}</div>
+        <div className='flex justify-center items-center'>
+            {loading? (<Loader />):
+            (
             <div>
-                {candidates.map((candidate, index) => {
-                    return (
-                        <button className="m-auto" key={index} onClick={() => submitVote(index)}>
-                            {candidate}
-                        </button>
-                    )
-                })}
-            </div>
+            <div>{renderedCandidates}</div>
+            </div>) }
+            
         </div>
     )
 }

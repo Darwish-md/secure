@@ -16,7 +16,7 @@ const userNavigation = [
 
 export default function NavBar() {
   return (
-    <nav className='relative mx-auto p-6 bg-denimDark h-100'>
+    <nav className='mx-auto p-6 bg-denimDark h-100'>
       {/* Flex container */}
       <div className='flex items-center justify-between'>
         {/* Logo */}

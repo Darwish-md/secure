@@ -28,3 +28,7 @@ body {
   color: white;
   background-color: #202142;
 }
+
+.content {
+  margin-top: 10rem;
+}
