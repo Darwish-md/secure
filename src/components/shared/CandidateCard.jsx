@@ -1,7 +1,7 @@
 import React from 'react'
 import { castVote } from '../../service/electionContractUtils';
 
-export default function CandidateCard({ candidate, candidateId, electionId }) {
+export default function CandidateCard({ candidate, electionId, candidateId }) {
   function getRandomAvatar() {
     const randomString = Math.random().toString(36).substring(7); // generates a random string
     const avatarUrl = `https://robohash.org/${randomString}.png?size=100x100`; // builds the avatar URL with custom width and height
@@ -14,15 +14,13 @@ export default function CandidateCard({ candidate, candidateId, electionId }) {
 
 }
 
-const avatarUrl = getRandomAvatar();
-
   return (
     <div className='block w-full max-w-lg mx-auto mb-4 ml-4 mr-4 border border-gray-900 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
       <div>{candidate}</div>
       <button className="m-auto" onClick={() => submitVote(candidateId, electionId)}>
                             Vote
                         </button>
-                        <img src={avatarUrl} alt={`Avatar for ${candidate}`} />
+                        <img src={getRandomAvatar()} alt={`Avatar for ${candidate}`} />
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CalendarDay from "./CalendarDay";
 import { TiLockClosed, TiLockOpen } from "react-icons/ti";
 
-export default function ElectionCard({ election, index }) {
+export default function ElectionCard({ election, electionId }) {
   const status = election.isValid ? (
     <div className="flex flex-row">
       <TiLockOpen className="text-3xl"/> <p>Election is now open</p>
@@ -16,9 +16,8 @@ export default function ElectionCard({ election, index }) {
 
   return (
     <Link
-      key={index}
       className='block w-full max-w-lg mx-auto mb-4 ml-4 mr-4 border border-gray-900 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
-      to={`/elections/vote/${index}`}
+      to={`/elections/vote/${electionId}`}
     >
       <div className='p-4'>
         <div className='bold text-3xl bg-denimBlue mb-3 p-5 rounded h-20 text-center'>{`${election.electionName}`}</div>

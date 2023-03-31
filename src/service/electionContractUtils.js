@@ -7,41 +7,6 @@ async function requestAccount() {
   await window.ethereum.request({ method: "eth_requestAccounts" });
 }
 
-async function getElectionsList() {
-  const elections = await getElections();
-  const electionsList = [];
-
-  for (let i = 0; i < elections[0].length; i++) {
-    electionsList.push({
-      electionName: elections[0][i],
-      startDate: convertToDate(elections[1][i]),
-      endDate: convertToDate(elections[2][i]),
-      isValid: elections[3][i],
-    });
-  }
-
-  return electionsList;
-}
-
-async function getElections() {
-  const contract = await getContract();
-  try {
-    const data = await contract.getElections();
-    return data;
-  } catch (e) {
-    console.log("Err: ", e);
-  }
-}
-
-function convertToDate(unixStamp) {
-  const date = new Date(unixStamp * 1000);
-  return date.toDateString();
-}
-
-function convertToUnixStamp(date) {
-  return Date.parse(date) / 1000;
-}
-
 async function getContract() {
   if (typeof window.ethereum !== "undefined") {
     //ethereum is usable, get reference to the contract
@@ -59,10 +24,42 @@ async function getContract() {
   }
 }
 
-async function getCandidateVotes(electionId, candidateId) {
+function convertToDate(unixStamp) {
+  const date = new Date(unixStamp * 1000);
+  return date.toDateString();
+}
+
+function convertToUnixStamp(date) {
+  return Date.parse(date) / 1000;
+}
+//////////////////////
+
+async function getElections() {
   const contract = await getContract();
   try {
-    const votes = await contract.getCandidateVotes(electionId, candidateId);
+  const electionsCount = await contract.electionCount();
+  const elections = [];
+  for (let i=0; i < electionsCount; i++){
+    let election = await getElectionById(i);
+    election ={
+      name: election[1],
+      description: election[2],
+      startDate: convertToDate(election[3]),
+      endDate: convertToDate(election[4]),
+      creator: election[6]
+    }
+    elections.push(election);
+  }
+  return elections;
+}catch (e) {
+    console.log("Err: ", e);
+  }
+}
+
+async function getCandidates(electionId) {
+  const contract = await getContract();
+  try {
+    const votes = await contract.getCandidates(electionId);
     return votes;
   } catch (e) {
     console.log("Err: ", e);
@@ -82,23 +79,10 @@ async function castVote(electionId, candidateId){
   }
 }
 
-async function addCandidates(electionId, candidates, contract) {
-  for (let index = 0; index < candidates.length; index++) {
-    console.log("index:", index, electionId)
-    const transaction = await contract.addCandidate(
-      electionId,
-      index,
-      candidates[index]
-    );
-    const result = await transaction.wait();
-    console.log(result);
-  }
-}
-
 async function getElectionById(electionId) {
   const contract = await getContract();
   try {
-    const data = await contract.getElectionData(parseInt(electionId));
+    const data = await contract.getElectionById(parseInt(electionId));
     return data;
   } catch (e) {
     console.log("Err: ", e);
@@ -111,16 +95,19 @@ async function createElection(electionData) {
   try {
     const transaction = await contract.createElection(
       electionData.electionName,
+      electionData.description,
+      convertToUnixStamp(electionData.endDate),
       electionData.creatorName,
-      convertToUnixStamp(electionData.endDate)
+      electionData.candidates
     );
     const transactionResult = await transaction.wait();
-    const electionId = transactionResult.events[0].args[0].toNumber();
-    await addCandidates(electionId, electionData.candidates, contract);
+    const electionId = transactionResult.events[2].args[0];
+    console.log("candidates returned by function:",await getElectionById(electionId))
+    console.log('election number:',await contract.electionCount())
     return electionId;
   } catch (err) {
     console.log(err);
   }
 }
 
-export { createElection, getElectionsList, getElectionById, castVote, getCandidateVotes};
+export { createElection, getElections, getElectionById, castVote, getCandidates};

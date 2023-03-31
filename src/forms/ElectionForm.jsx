@@ -21,8 +21,9 @@ export default function ElectionForm() {
     const elements = event.target.elements;
     const electionData = {
         electionName: elements.electionName.value,
-        creatorName: elements.creatorName.value,
+        description: elements.description.value,
         endDate: elements.endDate.value,
+        creatorName: elements.creatorName.value,
         candidates: candidates
     }
     const electionId = await createElection(electionData);
@@ -63,19 +64,30 @@ export default function ElectionForm() {
             placeholder='Owner name'
           />
         </div>
-        <div class='mb-4'>
+        <div className='mb-4'>
           <label
-            class='block text-sm font-bold mb-2'
-            for='endDate'
+            className='block text-sm font-bold mb-2'
+            htmlFor='endDate'
           >
             End Date
           </label>
           <input
-            class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             name='endDate'
             type='date'
             placeholder='End Date'
           />
+        </div>
+        <div>
+        <label htmlFor="message" className="block text-sm font-semibold leading-6">
+              Description
+            </label>
+            <textarea
+                name="description"
+                rows={4}
+                className="block w-full rounded-md border-0 py-2 px-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                defaultValue={''}
+              />
         </div>
         <div>
           <div className='flex flex-col mb-4'>

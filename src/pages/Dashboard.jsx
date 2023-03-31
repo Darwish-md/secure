@@ -4,6 +4,11 @@ import Heatmap from '../components/visualizations/HeatMap'
 import PieChart from '../components/visualizations/PieChart'
 
 export default function Dashboard() {
+    // useEffect(() => {
+    //     async function execute() {
+
+    //     }
+    // }, [])
   return (
     <div>
 <div>Dashboard</div>
@@ -15,6 +20,5 @@ export default function Dashboard() {
         <div><Heatmap /></div>
     </div>
     </div>
-    
   )
 }

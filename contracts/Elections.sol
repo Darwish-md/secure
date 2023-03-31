@@ -1,184 +1,148 @@
-pragma solidity ^0.5.16;
-pragma experimental ABIEncoderV2;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.0;
 
 contract Elections {
     struct Election {
-        uint256 id;
+        uint8 id;
         string name;
+        string description;
         uint256 startDate;
         uint256 endDate;
         address creator;
         string creatorName;
-        bool isActive;
-        mapping(uint256 => uint256) votes;
-        mapping(uint256 => string) candidates;
-        uint256 candidateCount;
-        mapping(address => bool) voters;
     }
 
-    mapping(uint256 => Election) public elections;
-    uint256 public electionCount;
+    uint8 public electionCount;
+    mapping(uint8 => Election) public elections;
+    mapping(uint8 => mapping(address => bool)) private voters;
+    mapping(uint8 => mapping(uint8 => uint32)) private votes;
+    mapping(uint8 => mapping(uint8 => string)) public candidates;
 
     event ElectionCreated(
-        uint256 id,
+        uint8 id,
         string name,
+        string description,
+        uint256 startDate,
         uint256 endDate,
-        address creator,
-        string _creatorName
+        address indexed creator,
+        string creatorName
     );
-    event ElectionEnded(uint256 id, string name, uint256 winningCandidateId);
-    event VoterRegistered(address voter);
-    event VoteCasted(address voter, uint256 electionId, uint256 candidateId);
+    event CandidateAdded(
+        uint8 electionId,
+        uint8 candidateId,
+        string candidateName
+    );
+    event VoteCast(uint8 electionId, uint8 candidateId);
 
     function createElection(
         string memory _name,
+        string memory _description,
+        uint256 _endDate,
         string memory _creatorName,
-        uint256 _endDate
+        string[] memory _candidateNames
     ) public {
-        require(
-            _endDate > block.timestamp,
-            "End date should be greater than start date"
-        );
-
+        address creator = msg.sender;
         elections[electionCount] = Election({
             id: electionCount,
             name: _name,
+            description: _description,
             startDate: block.timestamp,
             endDate: _endDate,
-            creator: msg.sender,
-            creatorName: _creatorName,
-            isActive: true,
-            candidateCount: 0
+            creator: creator,
+            creatorName: _creatorName
         });
-        
+        addCandidates(electionCount, _candidateNames);
         emit ElectionCreated(
             electionCount,
             _name,
+            _description,
+            block.timestamp,
             _endDate,
-            msg.sender,
+            creator,
             _creatorName
         );
         electionCount++;
     }
 
-    function getElections()
-        public
-        view
-        returns (
-            string[] memory,
-            uint256[] memory,
-            uint256[] memory,
-            bool[] memory
-        )
-    {
-        string[] memory names = new string[](electionCount);
-        uint256[] memory startDates = new uint256[](electionCount);
-        uint256[] memory endDates = new uint256[](electionCount);
-        bool[] memory isActiveFlags = new bool[](electionCount);
-
-        for (uint256 i = 1; i <= electionCount; i++) {
-            Election storage election = elections[i];
-            names[i - 1] = election.name;
-            startDates[i - 1] = election.startDate;
-            endDates[i - 1] = election.endDate;
-            isActiveFlags[i - 1] = election.isActive;
+    function addCandidates(
+        uint8 _electionId,
+        string[] memory _candidateNames
+    ) private {
+        require(
+            elections[_electionId].creator == msg.sender,
+            "Only the election creator can add candidates"
+        );
+        for (uint8 i = 0; i < _candidateNames.length; i++) {
+            candidates[_electionId][i] = _candidateNames[i];
+            emit CandidateAdded(_electionId, i, _candidateNames[i]);
         }
-
-        return (names, startDates, endDates, isActiveFlags);
     }
 
-    function addCandidate(
-        uint256 _electionId,
-        uint256 _candidateId,
-        string memory _candidateName
-    ) public {
-        Election storage election = elections[_electionId];
-        require(
-            election.creator == msg.sender,
-            "Only the creator of the election can add candidates"
-        );
-        require(election.isActive, "Election is not active");
-        require(
-            bytes(election.candidates[_candidateId]).length == 0,
-            "Candidate already exists"
-        );
-
-        election.candidates[_candidateId] = _candidateName;
-        election.candidateCount++;
+    function hasVoted(uint8 _electionId) public view returns (bool) {
+        if (voters[_electionId][msg.sender]) return true;
+        return false;
     }
 
-    function castVote(uint256 _electionId, uint256 _candidateId) public {
-        Election storage election = elections[_electionId];
-        require(election.isActive, "Election is not active");
+    function castVote(uint8 _electionId, uint8 _candidateId) public {
         require(
-            !election.voters[msg.sender],
-            "Voter has already voted for this candidate"
+            elections[_electionId].endDate >= block.timestamp,
+            "Election has ended"
         );
-        
-        election.votes[_candidateId]++;
-        election.voters[msg.sender] = true;
-        emit VoteCasted(msg.sender, _electionId, _candidateId);
+        require(!hasVoted(_electionId), "Voter has already voted");
+        require(
+            bytes(candidates[_electionId][_candidateId]).length != 0,
+            "Invalid candidate id"
+        );
+        voters[_electionId][msg.sender] = true;
+        votes[_electionId][_candidateId]++;
+        emit VoteCast(_electionId, _candidateId);
     }
 
-    function endElection(uint256 _electionId) public {
-        Election storage election = elections[_electionId];
-        require(
-            election.creator == msg.sender,
-            "Only the creator of the election can end it"
-        );
-        require(election.isActive, "Election is already ended");
-
-        uint256 maxVotes = 0;
-        uint256 winningCandidateId;
-        for (uint256 i = 0; i < election.candidateCount; i++) {
-            uint256 candidateId = i + 1;
-            uint256 votes = election.votes[candidateId];
-            if (votes > maxVotes) {
-                maxVotes = votes;
-                winningCandidateId = candidateId;
-            }
-        }
-
-        election.isActive = false;
-
-        emit ElectionEnded(election.id, election.name, winningCandidateId);
-    }
-
-    function getElectionData(
-        uint256 _electionId
+    function getElectionById(
+        uint8 _electionId
     )
         public
         view
-        returns (string memory, uint256, uint256, bool, string[] memory)
+        returns (
+            uint8 id,
+            string memory name,
+            string memory description,
+            uint256 startDate,
+            uint256 endDate,
+            address creator,
+            string memory creatorName
+        )
     {
         Election storage election = elections[_electionId];
-        require(election.id == _electionId, "Election not found");
-
-        string[] memory candidatesNames = new string[](election.candidateCount);
-
-        for (uint256 i = 0; i < election.candidateCount; i++) {
-            candidatesNames[i] = election.candidates[i];
-        }
+        require(election.id == _electionId, "Election does not exist");
 
         return (
+            election.id,
             election.name,
+            election.description,
             election.startDate,
             election.endDate,
-            election.isActive,
-            candidatesNames
+            election.creator,
+            election.creatorName
         );
     }
 
-    function getCandidateVotes(
-        uint256 _electionId,
-        uint256 _candidateId
-    ) public view returns (uint256) {
-        Election storage election = elections[_electionId];
-        require(
-            bytes(election.candidates[_candidateId]).length != 0,
-            "Candidate does not exist"
-        );
+    function getCandidates(
+        uint8 _electionId
+    ) public view returns (string[] memory, uint32[] memory) {
+        uint8 candidateCount = 0;
+        uint8 i = 0;
+        while (bytes(candidates[_electionId][i]).length != 0) {
+            candidateCount++;
+            i++;
+        }
+        string[] memory candidateNames = new string[](candidateCount);
+        uint32[] memory candidateVotes = new uint32[](candidateCount);
 
-        return election.votes[_candidateId];
+        for (i = 0; i < candidateCount; i++) {
+            candidateNames[i] = candidates[_electionId][i];
+            candidateVotes[i] = votes[_electionId][i];
+        }
+        return (candidateNames, candidateVotes);
     }
 }

@@ -21,7 +21,7 @@ export default function NavBar() {
       <div className='flex items-center justify-between'>
         {/* Logo */}
         <div className='pt-2 flex flex-wrap'>
-          <img src='/assets/pngwing.com (1).png' alt='' className='h-20 w-20' />
+          <img src='/assets/blocks.png' alt='' className='h-20 w-20' />
           <h1 className='text-center m-auto text-2xl font-cyber'>Secure</h1>
         </div>
         {/* Menu items */}

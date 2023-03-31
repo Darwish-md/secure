@@ -23,7 +23,7 @@ export default function Home() {
           </p>
         </div>
         <div className='md:w-1/2 mb-32 mr-'>
-          <img src='/assets/pngwing.com (1).png' alt='' />
+          <img src='/assets/blocks.png' alt='' />
         </div>
       </div>
     </section>

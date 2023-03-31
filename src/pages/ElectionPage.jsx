@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { getElectionsList } from "../service/electionContractUtils";
+import { getElections } from "../service/electionContractUtils";
 import Loader from "../components/shared/Loader";
 import "react-datepicker/dist/react-datepicker.css";
 import ElectionCard from "../components/shared/ElectionCard";
@@ -11,8 +11,9 @@ export default function ElectionPage() {
 
   useEffect(() => {
     async function renderElections() {
-      const newElections = await getElectionsList();
-      setElections(newElections);
+      const elections = await getElections();
+      console.log(elections[1]);
+      setElections(elections);
     }
     const timeoutId = setTimeout(() => {
       setLoading(false);
@@ -22,7 +23,7 @@ export default function ElectionPage() {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  const renderedElections = elections.map((election, index) => <ElectionCard election={election} index={index} />)
+  const renderedElections = elections.map((election, index) => <ElectionCard election={election} electionId={index} key={index} />)
 
   return (
     <div className='flex justify-center items-cen'>
