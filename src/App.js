@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ElectionForm from "./forms/ElectionForm";
 import Mission from "./components/Mission";
+import Chat from "./components/Chat";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         } />
         <Route path='/elections' element={<ElectionPage />} />
         <Route path='/mission' element={<Mission />} />
+        <Route path='/chat' element={<Chat />} />
         <Route path='/elections/create' element={<ElectionForm />} />
         <Route path='/elections/vote/:id' element={<VotingPage />} />
         <Route path='/elections/dashboard/:id' element={<Dashboard />} />

@@ -16,7 +16,7 @@ export default function Home() {
             <TypeWriterEffect
               startDelay={100}
               cursorColor='white'
-              text='Secure your voice, empower your vote with Blockchain'
+              text='Secure your voice, empower your vote with Blockchain !'
               typeSpeed={40}
               scrollArea={myAppRef.current}
             />

@@ -12,6 +12,12 @@ contract Elections {
         string creatorName;
     }
 
+    struct Candidate {
+        uint8 id;
+        string name;
+        uint32 votes;
+    }
+
     uint8 public electionCount;
     mapping(uint8 => Election) public elections;
     mapping(uint8 => mapping(address => bool)) private voters;
@@ -129,20 +135,22 @@ contract Elections {
 
     function getCandidates(
         uint8 _electionId
-    ) public view returns (string[] memory, uint32[] memory) {
+    ) public view returns (Candidate[] memory) {
         uint8 candidateCount = 0;
         uint8 i = 0;
         while (bytes(candidates[_electionId][i]).length != 0) {
             candidateCount++;
             i++;
         }
-        string[] memory candidateNames = new string[](candidateCount);
-        uint32[] memory candidateVotes = new uint32[](candidateCount);
+        Candidate[] memory candidatesArray = new Candidate[](candidateCount);
 
         for (i = 0; i < candidateCount; i++) {
-            candidateNames[i] = candidates[_electionId][i];
-            candidateVotes[i] = votes[_electionId][i];
+            candidatesArray[i] = Candidate({
+                id: i,
+                name: candidates[_electionId][i],
+                votes: votes[_electionId][i]
+            });
         }
-        return (candidateNames, candidateVotes);
+        return candidatesArray;
     }
 }

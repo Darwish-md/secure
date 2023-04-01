@@ -41,12 +41,13 @@ async function getElections() {
   const elections = [];
   for (let i=0; i < electionsCount; i++){
     let election = await getElectionById(i);
-    election ={
-      name: election[1],
-      description: election[2],
-      startDate: convertToDate(election[3]),
-      endDate: convertToDate(election[4]),
-      creator: election[6]
+    election = {
+      id: i,
+      name: election.name,
+      description: election.description,
+      startDate: convertToDate(election.startDate),
+      endDate: convertToDate(election.endDate),
+      creator: election.creatorName
     }
     elections.push(election);
   }
@@ -59,8 +60,8 @@ async function getElections() {
 async function getCandidates(electionId) {
   const contract = await getContract();
   try {
-    const votes = await contract.getCandidates(electionId);
-    return votes;
+    const candidates = await contract.getCandidates(electionId);
+    return candidates;
   } catch (e) {
     console.log("Err: ", e);
   }
@@ -82,8 +83,8 @@ async function castVote(electionId, candidateId){
 async function getElectionById(electionId) {
   const contract = await getContract();
   try {
-    const data = await contract.getElectionById(parseInt(electionId));
-    return data;
+    const election = await contract.getElectionById(parseInt(electionId));
+    return election;
   } catch (e) {
     console.log("Err: ", e);
   }

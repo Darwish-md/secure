@@ -10,31 +10,34 @@ import CandidateCard from "../components/shared/CandidateCard";
 export default function VotingPage() {
   const { id: electionId } = useParams();
   const [loading, setLoading] = useState(true);
-  const [election, setElection] = useState([])
+  const [election, setElection] = useState({})
   const [candidates, setCandidates] = useState([]);
-
+  const [candidatesCards, setCandidatesCards] = useState();
+  
   useEffect(() => {
-    async function renderCandidates() {
+    async function render() {
       const renderedElection = await getElectionById(electionId);
       setElection(renderedElection);
-      setCandidates(renderedElection[4]);
-      console.log(await getCandidates(0, 0));
+      const electionCandidates = await getCandidates(renderedElection.id);
+      setCandidates(electionCandidates);
     }
     const timeoutId = setTimeout(() => {
       setLoading(false);
     }, 1000);
-    renderCandidates();
+    render();
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [electionId]);
 
-  const renderedCandidates = candidates.map((candidate, index) => (
-    <CandidateCard
-      candidate={candidate}
-      candidateId={index}
-      electionId={electionId}
-      key={index}
-    />
-  ));
+  useEffect(() => {
+    const renderedCards = candidates.map((candidate, index) => (
+      <CandidateCard
+        candidate={candidate}
+        electionId={electionId}
+        key={index}
+      />
+    ));
+    setCandidatesCards(renderedCards);
+  }, [candidates, electionId]);
 
   return (
     <div className='flex justify-center items-center'>
@@ -42,8 +45,8 @@ export default function VotingPage() {
         <Loader />
       ) : (
         <div>
-            <div>{election[0]}</div>
-          <div>{renderedCandidates}</div>
+          <div>{election.name}</div>
+          <div>{candidatesCards}</div>
         </div>
       )}
     </div>

@@ -23,7 +23,7 @@ export default function ElectionPage() {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  const renderedElections = elections.map((election, index) => <ElectionCard election={election} electionId={index} key={index} />)
+  const renderedElections = elections.map((election, index) => <ElectionCard election={election} key={index} />)
 
   return (
     <div className='flex justify-center items-cen'>

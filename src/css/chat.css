@@ -1,0 +1,75 @@
+.chat-header {
+    background-color: gray;
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .chat-messages {
+    height: 300px;
+    overflow-y: scroll;
+  }
+  
+  .message {
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  .typewriter {
+    overflow: hidden;
+    border-right: 0.15em solid #2196f3;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 2s steps(30, end) forwards;
+  }
+  
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  .input-container {
+    display: flex;
+    margin-top: 16px;
+  }
+  
+  .input-field {
+    flex-grow: 1;
+    resize: none;
+    background-color: transparent;
+    border: 2px solid gray;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .input-button {
+    background-color: #2196f3;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    margin-left: 8px;
+    font-size: 16px;
+  }
+  
+  .input-button:hover {
+    background-color: #0d8bf2;
+  }
+  
+  .input-button i {
+    margin-right: 8px;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    box-shadow: none;
+    border: 2px solid #2196f3;
+  }  
