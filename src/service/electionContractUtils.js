@@ -32,27 +32,26 @@ function convertToDate(unixStamp) {
 function convertToUnixStamp(date) {
   return Date.parse(date) / 1000;
 }
-//////////////////////
 
 async function getElections() {
   const contract = await getContract();
   try {
-  const electionsCount = await contract.electionCount();
-  const elections = [];
-  for (let i=0; i < electionsCount; i++){
-    let election = await getElectionById(i);
-    election = {
-      id: i,
-      name: election.name,
-      description: election.description,
-      startDate: convertToDate(election.startDate),
-      endDate: convertToDate(election.endDate),
-      creator: election.creatorName
+    const electionsCount = await contract.electionCount();
+    const elections = [];
+    for (let i = 0; i < electionsCount; i++) {
+      let election = await getElectionById(i);
+      election = {
+        id: i,
+        name: election.name,
+        description: election.description,
+        startDate: convertToDate(election.startDate),
+        endDate: convertToDate(election.endDate),
+        creator: election.creatorName,
+      };
+      elections.push(election);
     }
-    elections.push(election);
-  }
-  return elections;
-}catch (e) {
+    return elections;
+  } catch (e) {
     console.log("Err: ", e);
   }
 }
@@ -67,7 +66,7 @@ async function getCandidates(electionId) {
   }
 }
 
-async function castVote(electionId, candidateId){
+async function castVote(electionId, candidateId) {
   const contract = await getContract();
   try {
     const transaction = await contract.castVote(electionId, candidateId);
@@ -103,12 +102,21 @@ async function createElection(electionData) {
     );
     const transactionResult = await transaction.wait();
     const electionId = transactionResult.events[2].args[0];
-    console.log("candidates returned by function:",await getElectionById(electionId))
-    console.log('election number:',await contract.electionCount())
+    console.log(
+      "candidates returned by function:",
+      await getElectionById(electionId)
+    );
+    console.log("election number:", await contract.electionCount());
     return electionId;
   } catch (err) {
     console.log(err);
   }
 }
 
-export { createElection, getElections, getElectionById, castVote, getCandidates};
+export {
+  createElection,
+  getElections,
+  getElectionById,
+  castVote,
+  getCandidates,
+};

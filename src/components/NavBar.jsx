@@ -8,11 +8,6 @@ const navigation = [
   { name: "Calendar", href: "#", current: false },
   { name: "Reports", href: "#", current: false },
 ];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
 
 export default function NavBar() {
   return (
