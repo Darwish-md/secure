@@ -4,13 +4,15 @@ import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Contact from "./components/Contact";
 import Testimonals from "./components/Testimonals";
-import ElectionPage from "./pages/ElectionPage";
-import VotingPage from "./pages/VotingPage";
+import Elections from "./pages/Elections";
+import Vote from "./pages/Vote";
 import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ElectionForm from "./forms/ElectionForm";
 import Mission from "./components/Mission";
 import Chat from "./components/Chat";
+import Profile from "./pages/Profile";
+import Engage from "./pages/Engage";
 
 const App = () => {
   return (
@@ -24,11 +26,13 @@ const App = () => {
           <Contact />
           </>
         } />
-        <Route path='/elections' element={<ElectionPage />} />
+        <Route path='/elections' element={<Elections />} />
         <Route path='/mission' element={<Mission />} />
         <Route path='/chat' element={<Chat />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/engage' element={<Engage />} />
         <Route path='/elections/create' element={<ElectionForm />} />
-        <Route path='/elections/vote/:id' element={<VotingPage />} />
+        <Route path='/elections/vote/:id' element={<Vote />} />
         <Route path='/elections/dashboard/:id' element={<Dashboard />} />
       </Routes>
       <Footer />

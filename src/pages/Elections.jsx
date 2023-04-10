@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { getElections } from "../service/electionContractUtils";
 import Loader from "../components/shared/Loader";
-import "react-datepicker/dist/react-datepicker.css";
 import ElectionCard from "../components/shared/ElectionCard";
 
-export default function ElectionPage() {
+export default function Elections() {
   const [loading, setLoading] = useState(true);
   const [elections, setElections] = useState([]);
 

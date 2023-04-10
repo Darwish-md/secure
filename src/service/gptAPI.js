@@ -1,6 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
 
-
 async function sendMessage(input) {
     const configuration = new Configuration({
       apiKey: process.env.REACT_APP_OPENAI_API_KEY,

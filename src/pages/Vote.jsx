@@ -7,7 +7,7 @@ import {
 import Loader from "../components/shared/Loader";
 import CandidateCard from "../components/shared/CandidateCard";
 
-export default function VotingPage() {
+export default function Vote() {
   const { id: electionId } = useParams();
   const [loading, setLoading] = useState(true);
   const [election, setElection] = useState({})
