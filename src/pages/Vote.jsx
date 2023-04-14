@@ -20,23 +20,24 @@ export default function Vote() {
       setElection(renderedElection);
       const electionCandidates = await getCandidates(renderedElection.id);
       setCandidates(electionCandidates);
+      const renderedCards = electionCandidates.map((candidate, index) => (
+        <CandidateCard
+          candidate={candidate}
+          electionId={electionId}
+          key={index}
+        />
+      ));
+      setCandidatesCards(renderedCards);
     }
     const timeoutId = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2000);
     render();
     return () => clearTimeout(timeoutId);
   }, [electionId]);
 
   useEffect(() => {
-    const renderedCards = candidates.map((candidate, index) => (
-      <CandidateCard
-        candidate={candidate}
-        electionId={electionId}
-        key={index}
-      />
-    ));
-    setCandidatesCards(renderedCards);
+
   }, [candidates, electionId]);
 
   return (

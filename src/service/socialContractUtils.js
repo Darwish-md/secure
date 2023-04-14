@@ -155,12 +155,15 @@ const uploadPost = async (post) => {
   try {
     const result = await client.add(JSON.stringify({ post }));
     hash = result.path;
+    console.log(hash)
   } catch (error) {
     window.alert("ipfs image upload error: ", error);
   }
   // upload post to blockchain
-  await contract.uploadPost(hash);
+  const status = await contract.uploadPost(hash);
+  console.log(status)
 };
+
 const tipPostOwner = async (post) => {
   const contract = await getContract();
   await contract.tipPostOwner(post.id, {

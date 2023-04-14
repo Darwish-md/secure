@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function Mission() {
   return (
-    <div className='flex justify-center items-center'>
-      <div className=' mt-6 block w-full max-w-lg mx-auto mb-4 ml-4 mr-4 rounded-lg overflow-hidden text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
+    <div className="flex justify-around mt-10 mb-10 px-20">
+      <div className='max-w-lg rounded-lg overflow-hidden text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
         <div className="bold text-3xl bg-denimBlue mb-3 p-5">Mission</div>
         <p className="italic text-sm font-normal leading-loose text-justify p-4">
           At Secure, we believe that voting is a fundamental right and an
@@ -40,7 +40,8 @@ export default function Mission() {
             </Link>
         </div>
       </div>
-      <div className="w-full max-w-lg mx-auto"><img src='/assets/mission.jpg' alt='' /></div>
+      <div className="max-w-lg flex-grow">
+        <img src='/assets/mission.jpg' alt=''  class="h-full object-cover" /></div>
     </div>
   );
 }

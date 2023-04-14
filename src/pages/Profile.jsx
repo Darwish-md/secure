@@ -1,22 +1,28 @@
 import { useState, useEffect } from "react";
-import { Row, Form, Button, Card, Col } from "react-bootstrap";
 import ProfileForm from "../forms/ProfileForm";
-import { getCurrentProfileNFT, getProfileNFTs, switchProfile} from "../service/socialContractUtils";
-const INFURA_API_KEY = process.env.REACT_APP_INFURA_API_KEY;
+import {
+  getCurrentProfileNFT,
+  getProfileNFTs,
+  switchProfile,
+} from "../service/socialContractUtils";
+import { MdPerson } from "react-icons/md";
+import Loader from "../components/shared/Loader";
 
 const Profile = () => {
   const [profile, setProfile] = useState("");
   const [nfts, setNfts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  console.log("Rendering.....")
+
   useEffect(() => {
     async function loadContent() {
-        await loadMyNFTs()
+      await loadMyNFTs();
     }
-    setLoading(true)
+    setLoading(true);
     loadContent();
   }, []);
-    
+
   const loadMyNFTs = async () => {
     const profileNFTs = await getProfileNFTs();
     setNfts(profileNFTs);
@@ -24,62 +30,79 @@ const Profile = () => {
   };
 
   const getProfile = async (profileNFTs) => {
-    const currentProfile = await getCurrentProfileNFT(profileNFTs)
+    const currentProfile = await getCurrentProfileNFT(profileNFTs);
     setProfile(currentProfile);
+    console.log("Setting the new profile: ", currentProfile.username)
     setLoading(false);
   };
 
   const handleSwitch = async (nft) => {
     setLoading(true);
     await switchProfile(nft.id);
+    console.log("set profile to")
     getProfile(nfts);
   };
 
-  return (
-    <div className='mt-4 text-center'>
-      {profile ? (
-        <div className='mb-3'>
-          <h3 className='mb-3'>{profile.username}</h3>
-          <img
-            className='mb-3'
-            style={{ width: "400px" }}
-            src={profile.avatar}
-          />
+  return loading ? (
+    <div className="flex w-full justify-center">
+    <Loader />
+    </div>
+  ) : (
+    
+    <div className="mt-8">
+      <div className="flex justify-center items-stretch space-x-8">
+        {profile ? (
+          <div className="rounded-lg shadow-md w-80">
+            <img
+              className="w-48 h-48 object-cover object-center rounded-full mx-auto mt-4"
+              src={profile.avatar}
+              alt={profile.username}
+            />
+            <div className="p-4">
+              <h3 className="text-2xl font-semibold text-center">{profile.username}</h3>
+            </div>
+          </div>
+        ) : (
+          <h4 className="text-xl font-semibold text-center self-center">
+            No NFT profile, please create one...
+          </h4>
+        )}
+        <div className="w-full max-w-md">
+          <ProfileForm loadMyNFTs={loadMyNFTs} />
         </div>
-      ) : (
-        <h4 className='mb-4'>No NFT profile, please create one...</h4>
-      )}
-    <ProfileForm loadMyNFTs={loadMyNFTs}/>
-      <div className='px-5 container'>
-        <Row xs={1} md={2} lg={4} className='g-4 py-5'>
+      </div>
+      <p>&nbsp;</p>
+      <hr />
+      <div className="container mx-auto px-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-8">
           {nfts.map((nft, idx) => {
             if (nft.id === profile.id) return;
             return (
-              <Col key={idx} className='overflow-hidden'>
-                <Card>
-                  <Card.Img variant='top' src={nft.avatar} />
-                  <Card.Body color='secondary'>
-                    <Card.Title>{nft.username}</Card.Title>
-                  </Card.Body>
-                  <Card.Footer>
-                    <div className='d-grid'>
-                      <Button
-                        onClick={() => handleSwitch(nft)}
-                        variant='primary'
-                        size='lg'
-                      >
-                        Set as Profile
-                      </Button>
-                    </div>
-                  </Card.Footer>
-                </Card>
-              </Col>
+              <div key={idx} className="overflow-hidden border border-gray-900 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl shadow py-3">
+                <div className="rounded-lg shadow-md w-80 mx-auto">
+                  <img
+                    className="w-48 h-48 object-cover object-center rounded-full mx-auto mt-4"
+                    src={nft.avatar}
+                    alt={nft.username}
+                  />
+                  <div className="p-4">
+                    <h3 className="text-2xl font-semibold text-center">{nft.username}</h3>
+                  </div>
+                  <div className="px-4 py-2 rounded-b-lg">
+                    <button
+                      onClick={() => handleSwitch(nft)}
+                      className="w-full py-2 text-white font-semibold bg-green hover:bg-lightGreen rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 flex items-center justify-center"
+                    >
+                      <MdPerson className="mr-2" /> Set as Profile
+                    </button>
+                  </div>
+                </div>
+              </div>
             );
           })}
-        </Row>
+        </div>
       </div>
     </div>
-  );
-};
+  );}
 
 export default Profile;

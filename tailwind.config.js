@@ -12,7 +12,9 @@ module.exports = {
       colors: {
         denimDark: '#071F3D',
         denimLight: '#202142',
-        denimBlue: '#1253A3'
+        denimBlue: '#1253A3',
+        green: '#4d7c0f',
+        lightGreen: '#65a30d'
       }
     },
     fontFamily: {

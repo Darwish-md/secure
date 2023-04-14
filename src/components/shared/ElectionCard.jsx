@@ -16,11 +16,11 @@ export default function ElectionCard({ election }) {
 
   return (
     <Link
-      className='block w-full max-w-lg mx-auto mb-4 ml-4 mr-4 border border-gray-900 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
+      className='w-full sm:w-1/2 lg:w-1/3 p-2 block w-full mt-8 max-w-lg mx-auto mb-4 mx-6 border border-gray-900 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
       to={`/elections/vote/${election.id}`}
     >
       <div className='p-4'>
-        <div className='bold text-3xl bg-denimBlue mb-3 p-5 rounded h-20 text-center'>{`${election.name}`}</div>
+        <div className='bold text-3xl bg-denimBlue mb-3 py-5 px-2 rounded h-20 text-center'>{`${election.name}`}</div>
         <div className='bg-denimDark text-center'>
           <p>Started on</p>
         </div>

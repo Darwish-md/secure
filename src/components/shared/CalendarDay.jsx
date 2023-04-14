@@ -18,7 +18,7 @@ const months = [
     "December",
   ];
   return (
-    <div className='w-60 h-60 p-3 mb-2 font-medium text-center'>
+    <div className='mx-auto p-3 mb-2 font-medium text-center'>
       <div className='bg-blue text-white py-1 bg-denimBlue p-4 font-bold text-xl'>
         {months[dateObj.getMonth()]}
       </div>

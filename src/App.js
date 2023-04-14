@@ -18,6 +18,7 @@ const App = () => {
   return (
     <Router>
       <NavBar />
+      <div className="body my-20 flex justify-center flex-col" style={{ minHeight: "70%" }}>
       <Routes>
         <Route exact path='/' element={
           <>
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/elections/vote/:id' element={<Vote />} />
         <Route path='/elections/dashboard/:id' element={<Dashboard />} />
       </Routes>
+</div>
       <Footer />
     </Router>
   );

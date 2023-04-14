@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getElections } from "../service/electionContractUtils";
 import Loader from "../components/shared/Loader";
 import ElectionCard from "../components/shared/ElectionCard";
+import gif from "../assets/fb_votingelection.gif";
 
 export default function Elections() {
   const [loading, setLoading] = useState(true);
@@ -19,22 +20,30 @@ export default function Elections() {
     }, 1000); 
 
     renderElections();
+
     return () => clearTimeout(timeoutId);
   }, []);
 
   const renderedElections = elections.map((election, index) => <ElectionCard election={election} key={index} />)
 
   return (
-    <div className='flex justify-center items-cen'>
+    <div className='m-auto'>
       {loading ? (
         <Loader />
       ) : (
-        <div className='flex flex-col items-center'>
-          <div className='m-auto flex flex-row flex-wrap'>{renderedElections}</div>
-          <div>
+        <div className='flex flex-col items-center justify-center'>
+          <div className='m-auto flex flex-row flex-wrap'> 
+      <img src={gif} alt="Sample GIF" className={`rounded-lg`}/>
+
+           </div>
+          <div className='m-auto flex flex-row flex-wrap justify-center gap-2'> 
+              {renderedElections}
+           </div>
+          <div
+className={`pl-7 p-7 p-3 mt-8 text-center rounded-full text-xl bg-denimBlue hover:bg-denimDark cursor-pointer w-60`}
+          >
             <Link
               to='/elections/create'
-              className={`pl-7 pr-7 p-3 mt-8 text-center rounded-full text-xl bg-denimBlue hover:bg-denimDark cursor-pointer w-60`}
             >
               Create Election
             </Link>

@@ -20,7 +20,7 @@ function Chat() {
 
   return (
     <>
-      <div className="mx-auto p-4">
+      <div className="mx-auto p-4 w-full">
         <div className="chat-header">
           <h3 align="center" className="mb-0">
             chat

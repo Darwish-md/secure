@@ -10,14 +10,13 @@ export default function Dashboard() {
     //     }
     // }, [])
   return (
+    <div className="text-center">
+<div className="text-4x1">Dashboard</div>
     <div>
-<div>Dashboard</div>
-    <div>
-        <div className='flex flex-row'>
-        <div> <BarChart /></div>
-        <div className='mt-20'><PieChart /></div>
+        <div className='flex flex-row justify-around'>
+        <BarChart />
+        <PieChart />
         </div>
-        <div><Heatmap /></div>
     </div>
     </div>
   )

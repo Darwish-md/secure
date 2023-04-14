@@ -3,11 +3,17 @@ import Elections from "../artifacts/contracts/Elections.sol/Elections.json";
 
 const ELECTIONS_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
+let contractInstance;
+
 async function requestAccount() {
   await window.ethereum.request({ method: "eth_requestAccounts" });
 }
 
 async function getContract() {
+  if (contractInstance) {
+    // return cached instance if it exists
+    return contractInstance;
+  }
   if (typeof window.ethereum !== "undefined") {
     //ethereum is usable, get reference to the contract
     await requestAccount();
@@ -15,12 +21,12 @@ async function getContract() {
 
     //signer needed for transaction that changes state
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(
+    const contractInstance = new ethers.Contract(
       ELECTIONS_ADDRESS,
       Elections.abi,
       signer
     );
-    return contract;
+    return contractInstance;
   }
 }
 
