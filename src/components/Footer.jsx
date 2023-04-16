@@ -36,7 +36,6 @@ export default function Footer() {
           <div className="flex flex-col space-y-3 text-white">
             <a  className="hover:text-brightRed">Careers</a>
             <a  className="hover:text-brightRed">Community</a>
-            <a  className="hover:text-brightRed">Privacy Policy</a>
           </div>
         </div>
 

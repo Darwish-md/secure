@@ -42,7 +42,7 @@ export default function Engage() {
         <Loader />
       </div>
     ) : (
-      <div className="container-fluid mt-5">
+      <div className="container-fluid mt-5 animate-fade-in">
         {hasProfile ? (
           <div className="row">
             <main
@@ -88,7 +88,7 @@ export default function Engage() {
             return (
               <div
                 key={key}
-                className="block max-w-lg mx-auto mb-4 border border-gray-900 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl p-4 shadow"
+                className="block bg-white max-w-lg mx-auto mb-4 border border-gray-900 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl p-4 shadow"
                 style={{ width: "1000px" }}
               >
                 <div className="flex items-center mb-2">
@@ -98,14 +98,14 @@ export default function Engage() {
                     height="30"
                     src={post.author.avatar}
                   />
-                  <small className="ms-2 me-auto d-inline">
+                  <small className="ms-2 me-auto d-inline text-black">
                     {post.author.username}
                   </small>
-                  <small className="mt-1 float-end d-inline">
+                  {/* <small className="mt-1 float-end d-inline text-black">
                     {post.author.address}
-                  </small>
+                  </small> */}
                 </div>
-                <div className="text-lg mb-3">{post.content}</div>
+                <div className="text-lg text-gray-500 mb-3">{post.content}</div>
                 <div className="flex items-center">
                   <div className="text-sm text-gray-500">
                     {ethers.utils.formatEther(post.tipAmount)} ETH

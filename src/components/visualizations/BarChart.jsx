@@ -1,12 +1,8 @@
 import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
 
-const BarChart = () => {
-  const data = [
-    { name: "cand1", votes: 5 },
-    { name: "cand2", votes: 7 },
-    { name: "cand3", votes: 80 },
-  ];
+const BarChart = ({candidates}) => {
+  const data = candidates;
 
   return (
     <div style={{ height: "80vh", width: "30vw", fill:"white" }}>

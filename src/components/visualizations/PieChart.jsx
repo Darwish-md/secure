@@ -1,12 +1,8 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 
-const PieChart = () => {
-  const data = [
-    { name: "cand1", votes: 5 },
-    { name: "cand2", votes: 15 },
-    { name: "cand3", votes: 30 },
-  ];
+const PieChart = ({candidates}) => {
+  const data = candidates;
 
   return (
     <div style={{ height: "80vh", width: "50vw", color:"white" }}>

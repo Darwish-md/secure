@@ -13,7 +13,7 @@ export default function ProfileForm({loadMyNFTs}) {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-6">
+    <div className="w-full max-w-md mx-auto mt-6 bg-white border rounded-lg">
     <form onSubmit={handleSubmit} className="flex flex-col items-center shadow-md rounded p-8">
       <label
         className="block w-full text-gray-700 text-sm font-bold mb-2"

@@ -27,29 +27,23 @@ export default function Elections() {
   const renderedElections = elections.map((election, index) => <ElectionCard election={election} key={index} />)
 
   return (
-    <div className='m-auto'>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className='flex flex-col items-center justify-center'>
-          <div className='m-auto flex flex-row flex-wrap'> 
-      <img src={gif} alt="Sample GIF" className={`rounded-lg`}/>
+<div className='flex flex-col items-center justify-center min-h-screen'>
+  {loading ? (
+    <Loader />
+  ) : (
+    <>
+      <div className='elections m-auto w-screen flex flex-row flex-wrap justify-center gap-2'>
+        {renderedElections}
+      </div>
+        <Link
+        className={`pl-7 p-7 p-3 mt-8 text-center rounded-full text-xl bg-denimBlue hover:bg-denimDark cursor-pointer w-60`}
+          to='/elections/create'
+        >
+          Create Election
+        </Link>
+    </>
+  )}
+</div>
 
-           </div>
-          <div className='m-auto flex flex-row flex-wrap justify-center gap-2'> 
-              {renderedElections}
-           </div>
-          <div
-className={`pl-7 p-7 p-3 mt-8 text-center rounded-full text-xl bg-denimBlue hover:bg-denimDark cursor-pointer w-60`}
-          >
-            <Link
-              to='/elections/create'
-            >
-              Create Election
-            </Link>
-          </div>
-        </div>
-      )}
-    </div>
   );
 }

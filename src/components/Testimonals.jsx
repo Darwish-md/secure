@@ -3,7 +3,7 @@ import React from "react";
 export default function Testimonals() {
   return (
     <section id='testimonials'>
-      <div className='max-w-6xl px-5 mx-auto text-center'>
+      <div className='max-w-6xl px-5 mx-auto text-center animate-fade-in'>
         <h2 className='text-4xl font-bold text-center'>
           What's Different About Secure?
         </h2>

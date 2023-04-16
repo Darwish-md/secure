@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Contact() {
+export default function ContactForm() {
   return (
     <div className="w-full max-w-md mx-auto mt-10">
   <div className="p-8 shadow rounded text-white">
@@ -51,8 +51,11 @@ export default function Contact() {
         </button>
       </div>
     </form>
+    <br></br>
+    <p className='text-center text-gray-500 text-xs'>
+        &copy;2023 Secure Corp. All rights reserved.
+      </p>
   </div>
 </div>
-
   )
 }

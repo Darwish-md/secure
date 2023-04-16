@@ -50,7 +50,7 @@ const Profile = () => {
   ) : (
     
     <div className="mt-8">
-      <div className="flex justify-center items-stretch space-x-8">
+      <div className="flex justify-center items-stretch space-x-8 animate-fade-in">
         {profile ? (
           <div className="rounded-lg shadow-md w-80">
             <img

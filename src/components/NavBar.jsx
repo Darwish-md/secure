@@ -2,14 +2,6 @@ import { useLocation, Link } from "react-router-dom";
 import ConnectButton from "./ConnectButton";
 import { useNavigate } from "react-router-dom";
 
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Reports", href: "#", current: false },
-];
-
 export default function NavBar() {
   const navigate = useNavigate();
   return (

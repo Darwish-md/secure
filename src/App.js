@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
-import Contact from "./components/Contact";
+import Contact from "./forms/ContactForm";
 import Testimonals from "./components/Testimonals";
 import Elections from "./pages/Elections";
 import Vote from "./pages/Vote";

@@ -78,8 +78,8 @@ async function castVote(electionId, candidateId) {
     const transaction = await contract.castVote(electionId, candidateId);
     const transactionResult = await transaction.wait();
     console.log(transactionResult);
-    // const electionId = transactionResult.events[0];
-    //return data;
+    const voteCasted = transactionResult.events[0].event;
+    return voteCasted;
   } catch (e) {
     console.log("Err: ", e);
   }

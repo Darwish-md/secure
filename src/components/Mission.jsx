@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Mission() {
   return (
-    <div className="flex justify-around mt-10 mb-10 px-20">
+    <div className="flex justify-around mt-10 mb-10 px-2 animate-fade-in">
       <div className='max-w-lg rounded-lg overflow-hidden text-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
         <div className="bold text-3xl bg-denimBlue mb-3 p-5">Mission</div>
         <p className="italic text-sm font-normal leading-loose text-justify p-4">
