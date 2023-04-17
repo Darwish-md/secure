@@ -95,14 +95,14 @@ export default function ElectionForm() {
   };
 
   return (
-<div className="w-fit m-auto mt-7 p-auto bg-white w-1/3  border rounded-lg">
+<div className="w-fit m-auto mt-7 p-auto bg-white w-2/6  border rounded-lg">
   <form
     onSubmit={handleSubmit}
     className="shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 animate-fade-in"
   >
     <div className="mb-4">
       <label
-        className="block text-sm font-bold mb-2"
+        className="block text-gray-600 text-sm font-bold mb-2"
         htmlFor="election"
       >
         Election
@@ -119,7 +119,7 @@ export default function ElectionForm() {
     </div>
     <div className="mb-4">
       <label
-        className="block text-sm font-bold mb-2"
+        className="block text-gray-600 text-sm font-bold mb-2"
         htmlFor="owner"
       >
         Owner
@@ -136,7 +136,7 @@ export default function ElectionForm() {
     </div>
     <div className="mb-4">
       <label
-        className="block text-sm font-bold mb-2"
+        className="block  text-gray-600 text-sm font-bold mb-2"
         htmlFor="endDate"
       >
         End Date
@@ -152,7 +152,7 @@ export default function ElectionForm() {
         )}
     </div>
     <div>
-      <label htmlFor="message" className="block text-sm font-semibold leading-6">
+      <label htmlFor="message" className="block text-gray-600 text-sm font-semibold leading-6">
         Description
       </label>
       <textarea
@@ -170,7 +170,7 @@ export default function ElectionForm() {
         {candidates.map((candidate, index) => (
           <div key={index}>
             <label
-              className="block text-sm font-bold mb-2"
+              className="block text-gray-600 text-sm font-bold mb-2"
               htmlFor=""
             >
               {`Candidate ${index + 1}`}

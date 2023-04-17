@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Contact from "./forms/ContactForm";
-import Testimonals from "./components/Testimonals";
 import Elections from "./pages/Elections";
 import Vote from "./pages/Vote";
 import Dashboard from "./pages/Dashboard";
@@ -13,6 +12,7 @@ import Mission from "./components/Mission";
 import Chat from "./components/Chat";
 import Profile from "./pages/Profile";
 import Engage from "./pages/Engage";
+import Features from "./components/Features";
 
 const App = () => {
   return (
@@ -23,7 +23,7 @@ const App = () => {
         <Route exact path='/' element={
           <>
           <Home />
-          <Testimonals />
+          <Features />
           <Contact />
           </>
         } />
