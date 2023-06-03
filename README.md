@@ -1,4 +1,4 @@
-# Idea 
+# Overview 
 The objective of this project is to address the issue of insecure and opaque elections through the development of a decentralized web application. The platform will be built using technologies such as Ethereum Solidity, React, and Hardhat to provide users with a highly secure and transparent means of participating in elections. In addition to providing a platform for creating and participating in elections, the platform will also have a social aspect. Users will be able to publish posts and have their profile stored as a Non-Fungible Token (NFT) on IPFS. The main goal of this project is to promote fair and secure elections while also providing a decentralized and transparent space for individuals to express their opinions and engage with others.
 # Getting Started with Secure
 ## Cloning the project repository
